@@ -9,7 +9,7 @@
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
-// Description: 
+// Description: quotient = dividend // divisor, remainder = dividend % divisor
 // 
 // Dependencies: 
 // 
@@ -96,6 +96,8 @@ module div_module
                         state <= IDLE; // Reset state to IDLE
                     end
                 end
+
+                default: state <= IDLE; // Default case to handle unexpected states
 
             endcase
         end
