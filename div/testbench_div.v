@@ -72,8 +72,6 @@ module testbench_div;
         rst = 1;
         #100;
         rst = 0;
-        #40;  // 等待复位完成
-        
         dividend = 64'h8765432187654321;
         divisor = 64'h654321;
         start = 1;
@@ -87,8 +85,6 @@ module testbench_div;
         rst = 1;
         #100;
         rst = 0;
-        #40;
-        
         dividend = 64'h1234567812345678;
         divisor = 64'h1234;
         start = 1;
@@ -102,8 +98,6 @@ module testbench_div;
         rst = 1;
         #100;
         rst = 0;
-        #40;
-        
         dividend = 64'hFFFFFFFFFFFFFFFF;
         divisor = 64'hF;
         start = 1;

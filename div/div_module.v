@@ -44,7 +44,7 @@ module div_module
     reg [N-1:0] dividend_reg;
     reg [M-1:0] divisor_reg;
     reg [N-1:0] quotient_reg;
-    reg [M-1:0] remainder_reg;
+    reg [M:0] remainder_reg;
     reg [7:0] count;
     reg done_reg;
 
@@ -73,14 +73,14 @@ module div_module
                 end
 
                 CALC: begin
-                    if(count < M) begin
-                        if({remainder_reg[M-2:0], dividend_reg[N-1]} >= divisor_reg) begin
-                            remainder_reg <= {remainder_reg[M-2:0], dividend_reg[N-1]} - divisor_reg; // Update remainder
-                            quotient_reg <= {quotient_reg[M-2:0], 1'b1}; // Set quotient bit
+                    if(count < N) begin
+                        if({remainder_reg[M-1:0], dividend_reg[N-1]} >= divisor_reg) begin
+                            remainder_reg <= {remainder_reg[M-1:0], dividend_reg[N-1]} - {1'b0, divisor_reg}; // Update remainder
+                            quotient_reg <= {quotient_reg[N-2:0], 1'b1}; // Set quotient bit
                         end
                         else begin
-                            remainder_reg <= {remainder_reg[M-2:0], dividend_reg[N-1]}; // Update remainder
-                            quotient_reg <= {quotient_reg[M-2:0], 1'b0};
+                            remainder_reg <= {remainder_reg[M-1:0], dividend_reg[N-1]}; // Update remainder
+                            quotient_reg <= {quotient_reg[N-2:0], 1'b0};
                         end
                         dividend_reg <= {dividend_reg[N-2:0], 1'b0}; // Shift dividend left
                         count <= count + 1'b1; // Increment count
@@ -104,7 +104,7 @@ module div_module
     end
 
     assign quotient = quotient_reg;
-    assign remainder = remainder_reg;
+    assign remainder = remainder_reg[M-1:0];
     assign done = done_reg;
     assign cnt = count;
 
